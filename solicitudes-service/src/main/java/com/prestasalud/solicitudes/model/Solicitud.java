@@ -30,6 +30,8 @@ public class Solicitud {
 
     private LocalDateTime fechaAprobacion;
 
+    private String motivoRechazo;
+
     protected Solicitud() {
         // requerido por JPA
     }
@@ -44,10 +46,18 @@ public class Solicitud {
 
     public void aprobar() {
         if (estado != EstadoSolicitud.PENDIENTE) {
-            throw new EstadoInvalidoException(id, estado);
+            throw new EstadoInvalidoException(id, estado, "aprobar");
         }
         this.estado = EstadoSolicitud.APROBADA;
         this.fechaAprobacion = LocalDateTime.now();
+    }
+
+    public void rechazar(String motivo) {
+        if (estado != EstadoSolicitud.PENDIENTE) {
+            throw new EstadoInvalidoException(id, estado, "rechazar");
+        }
+        this.estado = EstadoSolicitud.RECHAZADA;
+        this.motivoRechazo = motivo;
     }
 
     public Long getId() { return id; }
@@ -57,4 +67,5 @@ public class Solicitud {
     public EstadoSolicitud getEstado() { return estado; }
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
     public LocalDateTime getFechaAprobacion() { return fechaAprobacion; }
+    public String getMotivoRechazo() { return motivoRechazo; }
 }
