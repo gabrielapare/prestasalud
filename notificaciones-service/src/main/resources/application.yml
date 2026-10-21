@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: notificaciones-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notificaciones
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JacksonJsonDeserializer
+      properties:
+        spring.json.value.default.type: com.prestasalud.notificaciones.event.SolicitudAprobadaEvent
+        spring.json.trusted.packages: com.prestasalud.notificaciones.event
