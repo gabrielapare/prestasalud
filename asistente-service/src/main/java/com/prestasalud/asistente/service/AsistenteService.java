@@ -31,8 +31,9 @@ public class AsistenteService {
 
     public RespuestaAsistente preguntar(String pregunta) {
         var request = new GeminiRequest(
-                new SystemInstruction(List.of(new Part(SYSTEM_PROMPT))),
-                List.of(new Content("user", List.of(new Part(pregunta)))),
+                new SystemInstruction(List.of(Part.texto(SYSTEM_PROMPT))),
+                List.of(new Content("user", List.of(Part.texto(pregunta)))),
+                null,                       // sin herramientas
                 new GenerationConfig(0.2));
 
         long inicio = System.currentTimeMillis();
